@@ -75,7 +75,7 @@
 
     <section class="compare" aria-label="보험 리모델링 비교 안내">
       <div class="container">
-        <h2 class="compare-title">보험료는 낮추고 보장은 더 균형 있게</h2>
+        <h2 class="compare-title"><span>보험료는 낮추고</span><span>보장은 더 균형 있게</span></h2>
 
         <div class="compare-wrap">
           <div class="compare-table-wrap">
@@ -186,7 +186,7 @@
     </section>
 
 
-    <section class="consult" aria-label="온라인 상담 예시">
+    <section class="consult reveal-section" aria-label="온라인 상담 예시">
       <img class="consult-bg" src="assets/consult-bg.png" alt="" aria-hidden="true" />
       <div class="consult-overlay"></div>
 
@@ -258,6 +258,25 @@
       <button class="quote-submit" type="submit">무료 분석 신청 ›</button>
     </div>
   </form>
+
+
+  <script>
+    (() => {
+      const section = document.querySelector('.reveal-section');
+      if (!section) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            section.classList.add('is-visible');
+            observer.unobserve(section);
+          }
+        });
+      }, { threshold: 0.22 });
+
+      observer.observe(section);
+    })();
+  </script>
 
 </body>
 </html>
