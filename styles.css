@@ -2262,3 +2262,184 @@ select,
     max-width:112vw !important;
   }
 }
+
+
+
+/* =========================================================
+   FINAL PATCH V7 — BADGE + SCROLL INTERACTIONS
+========================================================= */
+
+/* BADGE: 더 크고, 더 위로 */
+.badge-art{
+  top:-14px !important;
+  left:max(20px, calc((100vw - 1200px) / 2 + 42px)) !important;
+  width:132px !important;
+}
+
+@media(max-width:980px){
+  .badge-art{
+    top:-10px !important;
+    left:16px !important;
+    width:108px !important;
+  }
+}
+
+@media(max-width:640px){
+  .badge-art{
+    top:-6px !important;
+    left:8px !important;
+    width:84px !important;
+  }
+}
+
+/* -----------------------------------------
+   실제 스크롤 인터랙션
+----------------------------------------- */
+
+/* 기본 상태 */
+.reveal-section{
+  position:relative;
+}
+
+.reveal-section .benefits-title,
+.reveal-section .compare-title,
+.reveal-section .process-title,
+.reveal-section .review-card,
+.reveal-section .review-visual,
+.reveal-section .chat-float{
+  opacity:0;
+  transform:translateY(28px);
+  transition:
+    opacity .72s ease,
+    transform .82s cubic-bezier(.22,.8,.22,1);
+}
+
+.reveal-section .benefit-card,
+.reveal-section .process-item{
+  opacity:0;
+  transform:translateY(24px) scale(.985);
+  transition:
+    opacity .56s ease,
+    transform .68s cubic-bezier(.22,.8,.22,1);
+}
+
+.reveal-section .compare-card,
+.reveal-section .compare-visual{
+  opacity:0;
+  transform:translateY(26px);
+  transition:
+    opacity .68s ease,
+    transform .78s cubic-bezier(.22,.8,.22,1);
+}
+
+/* 보이는 상태 */
+.reveal-section.is-visible .benefits-title,
+.reveal-section.is-visible .compare-title,
+.reveal-section.is-visible .process-title,
+.reveal-section.is-visible .review-card,
+.reveal-section.is-visible .review-visual,
+.reveal-section.is-visible .chat-float,
+.reveal-section.is-visible .compare-card,
+.reveal-section.is-visible .compare-visual,
+.reveal-section.is-visible .benefit-card,
+.reveal-section.is-visible .process-item{
+  opacity:1;
+  transform:none;
+}
+
+/* 카드 순차 등장 */
+.reveal-section.is-visible .benefit-card:nth-child(1){transition-delay:.06s}
+.reveal-section.is-visible .benefit-card:nth-child(2){transition-delay:.12s}
+.reveal-section.is-visible .benefit-card:nth-child(3){transition-delay:.18s}
+.reveal-section.is-visible .benefit-card:nth-child(4){transition-delay:.24s}
+.reveal-section.is-visible .benefit-card:nth-child(5){transition-delay:.30s}
+.reveal-section.is-visible .benefit-card:nth-child(6){transition-delay:.36s}
+
+.reveal-section.is-visible .process-item:nth-child(1){transition-delay:.08s}
+.reveal-section.is-visible .process-item:nth-child(2){transition-delay:.18s}
+.reveal-section.is-visible .process-item:nth-child(3){transition-delay:.28s}
+.reveal-section.is-visible .process-item:nth-child(4){transition-delay:.38s}
+
+.reveal-section.is-visible .compare-card{transition-delay:.08s}
+.reveal-section.is-visible .compare-visual{transition-delay:.18s}
+.reveal-section.is-visible .review-card{transition-delay:.08s}
+.reveal-section.is-visible .review-visual{transition-delay:.20s}
+
+/* 마지막 채팅 메시지 순차 등장 */
+.reveal-section .msg{
+  opacity:0;
+  transform:translateY(12px);
+  transition:
+    opacity .42s ease,
+    transform .50s ease;
+}
+
+.reveal-section.is-visible .msg{
+  opacity:1;
+  transform:none;
+}
+
+.reveal-section.is-visible .msg:nth-child(1){transition-delay:.22s}
+.reveal-section.is-visible .msg:nth-child(2){transition-delay:.34s}
+.reveal-section.is-visible .msg:nth-child(3){transition-delay:.46s}
+.reveal-section.is-visible .msg:nth-child(4){transition-delay:.58s}
+.reveal-section.is-visible .msg:nth-child(5){transition-delay:.70s}
+
+/* 배경 미세 줌 */
+.consult .consult-bg{
+  transform:scale(1.035);
+  transition:transform 1.25s cubic-bezier(.22,.8,.22,1);
+}
+
+.consult.is-visible .consult-bg{
+  transform:scale(1);
+}
+
+/* Hero도 최초 진입시 아주 자연스럽게 */
+.title-art{
+  animation:heroTitleIn .8s .08s both cubic-bezier(.22,.8,.22,1);
+}
+.people{
+  animation:heroPeopleIn .9s .18s both cubic-bezier(.22,.8,.22,1);
+}
+.badge-art{
+  animation:badgeIn .72s .02s both cubic-bezier(.22,.8,.22,1);
+}
+
+@keyframes heroTitleIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes heroPeopleIn{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes badgeIn{
+  from{opacity:0;transform:translateY(-10px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* 기존 PC hero 캐릭터 transform을 애니메이션이 건드리지 않게 보정 */
+@media(min-width:981px){
+  .people{
+    animation-name:heroPeopleOpacityIn;
+  }
+  @keyframes heroPeopleOpacityIn{
+    from{opacity:0}
+    to{opacity:1}
+  }
+}
+
+/* 접근성 */
+@media(prefers-reduced-motion:reduce){
+  .reveal-section *,
+  .title-art,
+  .people,
+  .badge-art,
+  .consult-bg{
+    animation:none !important;
+    transition:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+}
