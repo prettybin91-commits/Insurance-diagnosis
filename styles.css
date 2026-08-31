@@ -2088,3 +2088,177 @@ select,
     transition:none !important;
   }
 }
+
+
+
+/* =========================================================
+   FINAL PATCH V6 — BADGE / HERO PEOPLE / REVIEW SECTION
+========================================================= */
+
+/* 1) badge-art: 페이지 최상단에 붙이고, 네비보다 앞.
+      header 안 absolute이므로 스크롤을 따라다니지 않음 */
+.site-header{
+  position:relative !important;
+  z-index:1000 !important;
+  overflow:visible !important;
+}
+
+.badge-art{
+  position:absolute !important;
+  top:8px !important;
+  left:max(24px, calc((100vw - 1200px) / 2 + 48px)) !important;
+  width:108px !important;
+  height:auto !important;
+  margin:0 !important;
+  z-index:6000 !important;
+  pointer-events:none;
+  filter:drop-shadow(0 10px 20px rgba(20,78,146,.22));
+}
+
+/* 2) Hero 캐릭터는 Hero 바닥 안에서 끝나게.
+      아래 섹션 침범 금지 */
+.hero{
+  overflow:hidden !important;
+}
+
+.hero-inner{
+  overflow:visible !important;
+}
+
+.people{
+  bottom:-6px !important;
+  width:770px !important;
+  max-width:67vw !important;
+  transform:none !important;
+}
+
+/* 3) 후기 섹션: 말풍선은 세로 중앙, 캐릭터는 크게 + 섹션 바닥 정렬 */
+.review{
+  position:relative;
+  padding:70px 0 0 !important;
+  min-height:520px;
+  overflow:hidden !important;
+}
+
+.review .container{
+  height:100%;
+}
+
+.review-inner{
+  width:min(1040px,100%) !important;
+  min-height:450px;
+  margin:0 auto;
+  display:grid !important;
+  grid-template-columns:1.05fr .95fr !important;
+  gap:28px !important;
+  align-items:stretch !important;
+}
+
+.review-card{
+  align-self:center !important;
+  margin:0 !important;
+  min-height:250px !important;
+  transform:none !important;
+}
+
+.review-visual{
+  align-self:end !important;
+  min-height:450px !important;
+  height:100% !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:center !important;
+  overflow:visible !important;
+}
+
+.review-visual img{
+  width:620px !important;
+  max-width:none !important;
+  height:auto !important;
+  margin:0 !important;
+  transform:translateY(0) !important;
+  object-fit:contain !important;
+  object-position:center bottom !important;
+  align-self:flex-end !important;
+}
+
+/* Tablet */
+@media(max-width:980px){
+  .badge-art{
+    top:6px !important;
+    left:20px !important;
+    width:92px !important;
+  }
+
+  .people{
+    width:700px !important;
+    max-width:92vw !important;
+    right:50% !important;
+    transform:translateX(50%) !important;
+    bottom:-8px !important;
+  }
+
+  .review{
+    min-height:500px;
+    padding-top:60px !important;
+  }
+
+  .review-inner{
+    min-height:420px;
+    width:min(860px,100%) !important;
+    grid-template-columns:1fr .9fr !important;
+    gap:20px !important;
+  }
+
+  .review-visual{
+    min-height:420px !important;
+  }
+
+  .review-visual img{
+    width:540px !important;
+  }
+}
+
+/* Mobile */
+@media(max-width:640px){
+  .badge-art{
+    top:5px !important;
+    left:10px !important;
+    width:72px !important;
+  }
+
+  .people{
+    width:560px !important;
+    max-width:110vw !important;
+    bottom:-4px !important;
+  }
+
+  .review{
+    min-height:auto;
+    padding:50px 0 0 !important;
+  }
+
+  .review-inner{
+    min-height:auto;
+    grid-template-columns:1fr !important;
+    gap:18px !important;
+  }
+
+  .review-card{
+    align-self:auto !important;
+    order:1 !important;
+    margin:0 auto !important;
+    width:100% !important;
+  }
+
+  .review-visual{
+    order:2 !important;
+    min-height:320px !important;
+    height:320px !important;
+  }
+
+  .review-visual img{
+    width:430px !important;
+    max-width:112vw !important;
+  }
+}
