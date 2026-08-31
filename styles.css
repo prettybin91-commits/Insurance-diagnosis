@@ -1868,3 +1868,223 @@ select,
     font-size:34px !important;
   }
 }
+
+
+
+/* =========================================================
+   FINAL PATCH V3 — HERO / BADGE
+========================================================= */
+
+/* 기존 밝은 오버레이 제거 */
+.hero-wash{
+  display:none !important;
+}
+
+/* 원본 Hero 이미지를 크게 확대하고 위쪽 기준으로 배치 */
+.hero-bg{
+  position:absolute !important;
+  top:0 !important;
+  left:50% !important;
+  width:auto !important;
+  height:150% !important;
+  min-width:100% !important;
+  min-height:0 !important;
+  max-width:none !important;
+  transform:translateX(-50%) !important;
+  object-fit:cover !important;
+  object-position:center top !important;
+}
+
+/* 배지는 Hero 최상단에서 네비게이션 영역 위로 겹치게 */
+.hero{
+  overflow:visible !important;
+}
+
+.hero-inner{
+  position:relative !important;
+  z-index:3000 !important;
+}
+
+.badge-art{
+  position:absolute !important;
+  top:-70px !important;
+  left:48px !important;
+  width:108px !important;
+  margin:0 !important;
+  z-index:6000 !important;
+  pointer-events:none;
+}
+
+.site-header{
+  position:relative !important;
+  z-index:1000 !important;
+}
+
+/* Hero 이미지가 밖으로 넘치는 건 잘라내되 badge는 보이게 하기 위한 별도 클리핑 */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  z-index:-1;
+}
+
+@media(max-width:980px){
+  .hero-bg{
+    height:145% !important;
+  }
+  .badge-art{
+    top:-58px !important;
+    left:20px !important;
+    width:88px !important;
+  }
+}
+
+@media(max-width:640px){
+  .hero-bg{
+    height:138% !important;
+    object-position:54% top !important;
+  }
+  .badge-art{
+    top:-42px !important;
+    left:12px !important;
+    width:72px !important;
+  }
+}
+
+
+
+/* =========================================================
+   FINAL PATCH V4 — REVIEW CHARACTER
+   캐릭터를 더 크게, 섹션 바닥에 정확히 정렬
+========================================================= */
+.review{
+  padding-bottom:0 !important;
+}
+
+.review-inner{
+  align-items:end !important;
+}
+
+.review-visual{
+  min-height:390px !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:center !important;
+  overflow:visible !important;
+}
+
+.review-visual img{
+  width:min(100%, 560px) !important;
+  max-width:none !important;
+  height:auto !important;
+  margin:0 !important;
+  align-self:flex-end !important;
+  transform:translateY(0) !important;
+  object-fit:contain !important;
+  object-position:center bottom !important;
+}
+
+.review-visual::before{
+  bottom:0 !important;
+}
+
+@media(max-width:980px){
+  .review-visual{
+    min-height:350px !important;
+  }
+  .review-visual img{
+    width:min(100%, 500px) !important;
+  }
+}
+
+@media(max-width:640px){
+  .review{
+    padding-bottom:0 !important;
+  }
+  .review-visual{
+    min-height:300px !important;
+  }
+  .review-visual img{
+    width:min(100%, 430px) !important;
+  }
+}
+
+
+
+/* =========================================================
+   FINAL PATCH V5 — MOBILE TITLE BREAK + FINAL INTERACTION
+========================================================= */
+
+/* PC/Tablet: 한 줄 */
+.compare-title span{
+  display:inline;
+}
+
+.compare-title span + span::before{
+  content:" ";
+}
+
+/* Mobile: 두 줄 고정 */
+@media(max-width:640px){
+  .compare-title span{
+    display:block;
+  }
+  .compare-title span + span::before{
+    content:"";
+  }
+}
+
+/* 마지막 상담 섹션 자연스러운 등장 인터랙션 */
+.reveal-section .chat-float{
+  opacity:0;
+  transform:translateY(34px) scale(.985);
+  transition:
+    opacity .75s ease,
+    transform .85s cubic-bezier(.22,.8,.22,1);
+}
+
+.reveal-section .msg{
+  opacity:0;
+  transform:translateY(10px);
+  transition:
+    opacity .45s ease,
+    transform .55s ease;
+}
+
+.reveal-section.is-visible .chat-float{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+.reveal-section.is-visible .msg{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.reveal-section.is-visible .msg:nth-child(1){ transition-delay:.22s; }
+.reveal-section.is-visible .msg:nth-child(2){ transition-delay:.36s; }
+.reveal-section.is-visible .msg:nth-child(3){ transition-delay:.50s; }
+.reveal-section.is-visible .msg:nth-child(4){ transition-delay:.64s; }
+.reveal-section.is-visible .msg:nth-child(5){ transition-delay:.78s; }
+
+/* 배경도 아주 미세하게 살아나는 정도만 */
+.reveal-section .consult-bg{
+  transform:scale(1.025);
+  transition:transform 1.4s cubic-bezier(.22,.8,.22,1);
+}
+
+.reveal-section.is-visible .consult-bg{
+  transform:scale(1);
+}
+
+/* 접근성: 모션 최소화 환경에서는 애니메이션 제거 */
+@media (prefers-reduced-motion: reduce){
+  .reveal-section .chat-float,
+  .reveal-section .msg,
+  .reveal-section .consult-bg{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+}
